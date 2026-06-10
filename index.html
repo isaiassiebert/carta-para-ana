@@ -4,37 +4,528 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carta para Anjinha</title>
-    <!-- Importando as fontes: Great Vibes (manuscrita) e Cormorant Garamond (formal para o versículo) -->
+    
+    <!-- Importando as fontes ideais para o estilo romântico e formal -->
+    <!-- Playfair Display para títulos impactantes e Cormorant Garamond para textos extremamente legíveis e clássicos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Biblioteca FontAwesome para ícones profissionais (coração, música, fechar) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- CONFIGURAÇÕES GERAIS E EFEITOS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Fundo suave com degradê romântico */
+            background: linear-gradient(135deg, #ffeef2 0%, #ffd3db 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Elementos flutuantes de fundo para dar uma atmosfera romântica */
+        .decoracao-fundo {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .coracao-flutuante {
+            position: absolute;
+            color: rgba(255, 105, 135, 0.2);
+            font-size: 1.5rem;
+            animation: flutuar 12s linear infinite;
+        }
+
+        @keyframes flutuar {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Posicionando corações em locais variados no fundo */
+        .coracao-flutuante:nth-child(1) { left: 10%; animation-duration: 15s; font-size: 2rem; }
+        .coracao-flutuante:nth-child(2) { left: 30%; animation-duration: 18s; animation-delay: 2s; }
+        .coracao-flutuante:nth-child(3) { left: 55%; animation-duration: 14s; animation-delay: 5s; font-size: 2.5rem; }
+        .coracao-flutuante:nth-child(4) { left: 80%; animation-duration: 20s; animation-delay: 1s; }
+        .coracao-flutuante:nth-child(5) { left: 90%; animation-duration: 16s; animation-delay: 7s; font-size: 1.8rem; }
+
+        .container {
+            perspective: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 30px 20px;
+            z-index: 1;
+        }
+
+        /* --- CONTROLADOR DE MÚSICA FLUTUANTE --- */
+        .controle-musica {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
+            background-color: #b71c1c;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #ffffff;
+        }
+
+        .controle-musica:hover {
+            transform: scale(1.1);
+            background-color: #d32f2f;
+            box-shadow: 0 6px 20px rgba(183, 28, 28, 0.4);
+        }
+
+        .controle-musica.tocando {
+            animation: pulsarMusica 1.8s infinite;
+        }
+
+        @keyframes pulsarMusica {
+            0% { box-shadow: 0 0 0 0 rgba(183, 28, 28, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(183, 28, 28, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(183, 28, 28, 0); }
+        }
+
+        /* --- ENVELOPE E CENTRALIZAÇÃO HORIZONTAL --- */
+        .envelope-wrapper {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Garante alinhamento central */
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.03);
+        }
+
+        /* Dedicatória "Para Anjinha 💗" - Modificada para maior contraste e destaque */
+        .dedicatoria-carta {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            color: #310006; /* Tom vinho extremamente escuro de alto contraste */
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .dedicatoria-carta span {
+            color: #ff3366; /* Rosa vibrante para o coração contrastar */
+            font-size: 2.8rem;
+        }
+
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            background-color: #c62828; /* Vermelho elegante */
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+            margin-bottom: 25px;
+        }
+
+        /* Aba triangular do envelope */
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 110px solid #d32f2f;
+            transform-origin: top;
+            transition: transform 0.4s ease;
+            z-index: 2;
+        }
+
+        /* Corpo interno do envelope */
+        .envelope .corpo {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-left: 160px solid #b71c1c;
+            border-right: 160px solid #b71c1c;
+            border-bottom: 100px solid #b71c1c;
+            border-top: 100px solid transparent;
+            z-index: 3;
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* Coração selando o envelope */
+        .selo-coracao {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            z-index: 4;
+            animation: pulsarCoracao 1.5s infinite;
+        }
+
+        /* Instrução de clique */
+        .instrucao {
+            font-size: 1.25rem;
+            color: #b71c1c;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 40px;
+            font-family: 'Cormorant Garamond', serif;
+            text-align: center;
+        }
+
+        /* Versículo bíblico formatado de maneira formal e centralizada */
+        .versiculo-container {
+            width: 100%;
+            max-width: 420px;
+            border-top: 1.5px solid rgba(183, 28, 28, 0.25);
+            padding-top: 25px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .texto-versiculo {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            color: #3a3a3a;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .referencia-versiculo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: #b71c1c;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+
+        /* Animação do coração selador */
+        @keyframes pulsarCoracao {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.18); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+
+        /* --- PAPEL DA CARTA EXPANDIDO E FORMAL --- */
+        .carta-conteudo {
+            background-color: #fffdf9; /* Papel de textura clássica marfim */
+            width: 100%;
+            max-width: 780px; /* Espaço para o texto expandido */
+            min-height: 520px; /* Altura mínima aumentada */
+            padding: 55px 50px; /* Margem interna generosa */
+            border-radius: 8px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+            text-align: center;
+            transform: translateY(40px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .carta-conteudo.faded-in {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Título interno elegante e formal */
+        .titulo-carta {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            color: #c62828;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        /* Texto da carta formal e legível */
+        .texto-carta {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem; /* Letras maiores e muito mais legíveis */
+            color: #2b2b2b;
+            line-height: 1.7; /* Maior espaçamento entre as linhas */
+            text-align: justify; /* Alinhamento justificado clássico de cartas formais */
+            margin-bottom: 45px;
+            max-width: 100%;
+        }
+
+        .texto-carta p {
+            margin-bottom: 20px;
+            text-indent: 30px; /* Recuo clássico de parágrafo */
+        }
+
+        .assinatura-container {
+            margin-top: 40px;
+            text-align: right; /* Alinhado à direita de forma tradicional */
+            padding-right: 20px;
+        }
+
+        .assinatura {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            color: #555555;
+            margin-bottom: 5px;
+        }
+
+        .assinatura-nome {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #c62828;
+            font-weight: 700;
+        }
+
+        /* --- BOTÃO DE VOLTAR (FECHAR CARTA) --- */
+        .btn-voltar-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding-top: 30px;
+        }
+
+        .btn-voltar {
+            background-color: transparent;
+            border: 2px solid #b71c1c;
+            color: #b71c1c;
+            padding: 12px 30px;
+            font-size: 1.15rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-voltar:hover {
+            background-color: #b71c1c;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(183, 28, 28, 0.2);
+        }
+
+        /* Ajustes de responsividade para telas menores */
+        @media (max-width: 768px) {
+            .carta-conteudo {
+                padding: 35px 25px;
+            }
+            .titulo-carta {
+                font-size: 2.5rem;
+                margin-bottom: 30px;
+            }
+            .texto-carta {
+                font-size: 1.3rem;
+            }
+            .dedicatoria-carta {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Corações decorativos no fundo da página -->
+    <div class="decoracao-fundo">
+        <div class="coracao-flutuante">❤️</div>
+        <div class="coracao-flutuante">🌸</div>
+        <div class="coracao-flutuante">❤️</div>
+        <div class="coracao-flutuante">🌸</div>
+        <div class="coracao-flutuante">❤️</div>
+    </div>
+
+    <!-- Botão de controle de música flutuante -->
+    <!-- Você pode alterar o link do atributo 'src' na tag <audio> abaixo para colocar a música que preferir! -->
+    <div class="controle-musica" id="music-btn" title="Ativar música">
+        <i class="fa-solid fa-music"></i>
+    </div>
+    
+    <audio id="bg-music" loop>
+        <!-- Link de uma melodia clássica suave de piano (Beethoven - Moonlight Sonata) -->
+        <source src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Ludwig_van_Beethoven_-_Piano_Sonata_No._14_in_C-sharp_minor%2C_Op._27%2C_No._2_-_I._Adagio_sostenuto.mp3" type="audio/mp3">
+        Seu navegador não suporta áudio.
+    </audio>
+
     <div class="container">
-        <!-- Bloco do Envelope e Versículo -->
-        <div class="envelope-wrapper" id="envelope">
-            <!-- Dedicatória em cima da carta -->
-            <p class="dedicatoria-carta">Para Anjinha 💗</p>
+        <!-- BLOCO INICIAL: Envelope, Dedicatória e Versículo -->
+        <div class="envelope-wrapper" id="envelope-block">
             
+            <!-- Dedicatória maior, com alto contraste (vinho escuro) e coração rosa vibrante -->
+            <p class="dedicatoria-carta">Para Anjinha <span>💗</span></p>
+            
+            <!-- Envelope Vermelho clicável -->
             <div class="envelope">
                 <div class="capa"></div>
                 <div class="corpo"></div>
                 <div class="selo-coracao">❤️</div>
             </div>
+            
             <p class="instrucao">Você recebeu uma carta. Clique para abrir...</p>
 
-            <!-- Versículo Bíblico Formal abaixo da carta -->
+            <!-- Versículo Bíblico abaixo do envelope (Formal e Centralizado) -->
             <div class="versiculo-container">
                 <p class="texto-versiculo">"Mulher virtuosa, quem a achará? O seu valor muito excede ao de rubis."</p>
                 <p class="referencia-versiculo">Provérbios 31:10</p>
             </div>
         </div>
 
-        <!-- Conteúdo da Carta (Escondido no início) -->
-        <div class="carta-conteudo hidden" id="carta">
-            <h1 class="titulo-carta">Título da Carta Aqui</h1>
+        <!-- CONTEÚDO DA CARTA (Escondido por padrão, expandido para mais espaço de texto) -->
+        <div class="carta-conteudo hidden" id="carta-block">
+            
+            <h1 class="titulo-carta">Carta para Anjinha</h1>
+            
+            <div class="texto-carta">
+                <!-- Parágrafos com escrita formal, muito nítidos e legíveis -->
+                <p>Aqui começará a sua mensagem personalizada para ela. Você pode estruturar suas ideias com calma, pois o espaço agora foi generosamente expandido para que os seus pensamentos fiquem organizados de forma clássica e visualmente agradável.</p>
+                
+                <p>Utilizamos uma tipografia serifada de alta legibilidade, ideal para dar o tom sério, sincero e poético que uma carta de amor exige. Diferente da fonte manuscrita, esta permite uma leitura confortável em qualquer tamanho de tela.</p>
+                
+                <p>Sinta-se à vontade para dividir o seu texto em quantos parágrafos achar necessário. O espaçamento vertical foi programado para se ajustar automaticamente ao tamanho da sua declaração.</p>
+            </div>
+            
+            <div class="assinatura-container">
+                <p class="assinatura">Com profundo carinho e admiração,</p>
+                <p class="assinatura-nome">Seu Nome</p>
+            </div>
+
+            <!-- Botão elegante para fechar a carta e retornar ao envelope -->
+            <div class="btn-voltar-container">
+                <button class="btn-voltar" id="btn-voltar">
+                    <i class="fa-solid fa-envelope-open"></i> Fechar Carta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CÓDIGO INTERATIVO (Abertura, fechamento e reprodução de áudio) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const envelopeBlock = document.getElementById("envelope-block");
+            const cartaBlock = document.getElementById("carta-block");
+            const btnVoltar = document.getElementById("btn-voltar");
+            const musicBtn = document.getElementById("music-btn");
+            const bgMusic = document.getElementById("bg-music");
+
+            // Evento para abrir a carta com transições suaves
+            envelopeBlock.addEventListener("click", () => {
+                // Desvanece o bloco do envelope
+                envelopeBlock.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+                envelopeBlock.style.opacity = "0";
+                envelopeBlock.style.transform = "scale(0.9) translateY(-20px)";
+
+                // Após a animação de sumiço, esconde o envelope e mostra a carta
+                setTimeout(() => {
+                    envelopeBlock.classList.add("hidden");
+                    cartaBlock.classList.remove("hidden");
+                    
+                    // Pequeno delay para acionar a transição de entrada da carta
+                    setTimeout(() => {
+                        cartaBlock.classList.add("faded-in");
+                    }, 50);
+                }, 500);
+
+                // Opcional: Tenta iniciar a música automaticamente ao abrir a carta, se ainda não estiver tocando
+                if (bgMusic.paused) {
+                    iniciarMusica();
+                }
+            });
+
+            // Evento para voltar ao envelope (fechar carta)
+            btnVoltar.addEventListener("click", (e) => {
+                e.stopPropagation(); // Evita conflitos de cliques
+                
+                // Desvanece a carta
+                cartaBlock.classList.remove("faded-in");
+                
+                // Após o tempo de animação de sumiço da carta
+                setTimeout(() => {
+                    cartaBlock.classList.add("hidden");
+                    envelopeBlock.classList.remove("hidden");
+                    
+                    // Retorna a opacidade e o tamanho padrão do envelope de forma suave
+                    setTimeout(() => {
+                        envelopeBlock.style.opacity = "1";
+                        envelopeBlock.style.transform = "scale(1) translateY(0)";
+                    }, 50);
+                }, 500);
+            });
+
+            // Funções de controle do reprodutor musical
+            function iniciarMusica() {
+                bgMusic.play().then(() => {
+                    musicBtn.classList.add("tocando");
+                    musicBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+                    musicBtn.title = "Pausar música";
+                }).catch(err => {
+                    console.log("Autoplay bloqueado pelo navegador. Toque no botão de música para iniciar.");
+                });
+            }
+
+            function pausarMusica() {
+                bgMusic.pause();
+                musicBtn.classList.remove("tocando");
+                musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+                musicBtn.title = "Ativar música";
+            }
+
+            musicBtn.addEventListener("click", () => {
+                if (bgMusic.paused) {
+                    iniciarMusica();
+                } else {
+                    pausarMusica();
+                }
+            });
+        });
+    </script>
+</body>
+</html>            <h1 class="titulo-carta">Título da Carta Aqui</h1>
             <div class="texto-carta">
                 <p>Aqui ficará o seu texto personalizado...</p>
                 <p>Você pode escrever quantos parágrafos quiser para deixar o momento ainda mais especial.</p>
