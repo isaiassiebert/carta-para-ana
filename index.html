@@ -4,23 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carta para Anjinha</title>
+    <!-- Importando as fontes: Great Vibes (manuscrita) e Cormorant Garamond (formal para o versículo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
+        <!-- Bloco do Envelope e Versículo -->
         <div class="envelope-wrapper" id="envelope">
+            <!-- Dedicatória em cima da carta -->
+            <p class="dedicatoria-carta">Para Anjinha 💗</p>
+            
             <div class="envelope">
                 <div class="capa"></div>
                 <div class="corpo"></div>
                 <div class="selo-coracao">❤️</div>
             </div>
             <p class="instrucao">Você recebeu uma carta. Clique para abrir...</p>
+
+            <!-- Versículo Bíblico Formal abaixo da carta -->
+            <div class="versiculo-container">
+                <p class="texto-versiculo">"Mulher virtuosa, quem a achará? O seu valor muito excede ao de rubis."</p>
+                <p class="referencia-versiculo">Provérbios 31:10</p>
+            </div>
         </div>
 
+        <!-- Conteúdo da Carta (Escondido no início) -->
         <div class="carta-conteudo hidden" id="carta">
             <h1 class="titulo-carta">Título da Carta Aqui</h1>
             <div class="texto-carta">
