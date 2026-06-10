@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ffeef2; /* Um fundo rosinha bem sutil e romântico */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+.container {
+    perspective: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* --- ESTILO DO ENVELOPE --- */
+.envelope-wrapper {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+
+.envelope-wrapper:hover {
+    transform: scale(1.05); /* Efeito de zoom leve ao passar o mouse */
+}
+
+.envelope {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    background-color: #c62828; /* Vermelho elegante */
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+}
+
+/* Aba triangular do envelope */
+.envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 100px solid #d32f2f; /* Vermelho ligeiramente diferente para dar profundidade */
+    transform-origin: top;
+    transition: transform 0.4s ease;
+    z-index: 2;
+}
+
+/* Detalhe interno do envelope */
+.envelope .corpo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-left: 140px solid #b71c1c;
+    border-right: 140px solid #b71c1c;
+    border-bottom: 90px solid #b71c1c;
+    border-top: 90px solid transparent;
+    z-index: 3;
+    border-radius: 0 0 10px 10px;
+}
+
+/* Coração funcionando como selo */
+.selo-coracao {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 32px;
+    z-index: 4;
+    animation: pulsar 1.5s infinite;
+}
+
+.instrucao {
+    font-size: 1.1rem;
+    color: #c62828;
+    font-weight: 600;
+}
+
+/* --- ANIMAÇÃO DE PULSAR O CORAÇÃO --- */
+@keyframes pulsar {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.15); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
+/* --- ESTILO DA CARTA MANUSCRITA --- */
+.carta-conteudo {
+    background-color: #fffaf0; /* Cor de papel envelhecido/marfim */
+    width: 100%;
+    max-width: 500px;
+    padding: 40px 30px;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 0.8s ease-in-out;
+}
+
+/* Classe utilitária para esconder e mostrar com suavidade */
+.hidden {
+    display: none;
+}
+
+.carta-conteudo.faded-in {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Fontes manuscritas */
+.titulo-carta {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
+    color: #b71c1c;
+    margin-bottom: 25px;
+}
+
+.texto-carta {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.2rem;
+    color: #333;
+    line-height: 1.4;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.texto-carta p {
+    margin-bottom: 15px;
+    text-indent: 20px;
+}
+
+.assinatura {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: #555;
+}
+
+.assinatura-nome {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #b71c1c;
+    font-weight: bold;
+}
